@@ -18,7 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
+from Czujniki.views import wszystkie, szczegoly
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('Czujniki/', include('Czujniki.urls')),
+    path('wszystkie/', wszystkie),
+    path('szczegoly/', szczegoly),
 ]
