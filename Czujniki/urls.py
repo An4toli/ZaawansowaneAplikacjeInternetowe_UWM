@@ -22,5 +22,5 @@ from Czujniki.views import wszystkie, szczegoly
 
 urlpatterns = [
     path('wszystkie/', wszystkie),
-    path('szczegoly/', szczegoly),
+    path('szczegoly/<int:czujnik_id>/', szczegoly),
 ]
