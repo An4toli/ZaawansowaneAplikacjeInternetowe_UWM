@@ -1,12 +1,15 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from Czujniki.models import Czujnik
+from rest_framework import viewsets
+from .models import Produkt, Zamowienie
+from .serializers import ProduktSerializer, ZamowienieSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
-def wszystkie(request):
-    return HttpResponse(["<h1>",[[f.id, f.nazwa, f.cena] for f in Czujnik.objects.all()],"</h1>"])
+class ProduktViewSet(viewsets.ModelViewSet):
+    queryset = Produkt.objects.all()
+    serializer_class = ProduktSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-def szczegoly(request,czujnik_id):
-    f = Czujnik.objects.get(id=czujnik_id)
-    return HttpResponse(
-        "<h3> Nazwa Czujnika: {},</br> cena: {}, </br> opis: {} </h3>"
-        .format(f.nazwa, f.cena, f.opis))
+class ZamowienieViewSet(viewsets.ModelViewSet):
+    queryset = Zamowienie.objects.all()
+    serializer_class = ZamowienieSerializer
+    permission_classes = [IsAuthenticated]
